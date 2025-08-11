@@ -10,12 +10,14 @@ client:
           port: 80
   ingress:
     main:
-      enabled: true
-      hosts:
-        - host: change_me
-          paths:
-            - path: /
-              pathType: Prefix
+      enabled: false
+      # Only define hosts when ingress is enabled
+      # To enable ingress, set enabled: true and uncomment/configure hosts below:
+      # hosts:
+      #   - host: your-client-domain.com
+      #     paths:
+      #       - path: /
+      #         pathType: Prefix
 
 server:
   enabled: true
@@ -32,12 +34,14 @@ server:
           port: 52345
   ingress:
     main:
-      enabled: true
-      hosts:
-        - host: change_me
-          paths:
-            - path: /
-              pathType: Prefix
+      enabled: false
+      # Only define hosts when ingress is enabled
+      # To enable ingress, set enabled: true and uncomment/configure hosts below:
+      # hosts:
+      #   - host: your-server-domain.com
+      #     paths:
+      #       - path: /
+      #         pathType: Prefix
 
 mongodb:
   enabled: true
