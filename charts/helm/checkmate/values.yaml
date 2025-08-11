@@ -11,8 +11,9 @@ client:
   ingress:
     main:
       enabled: false
-      # Only define hosts when ingress is enabled
-      # To enable ingress, set enabled: true and uncomment/configure hosts below:
+      # When ingress is disabled, ensure no hosts are defined
+      hosts: []
+      # To enable ingress, set enabled: true and configure hosts:
       # hosts:
       #   - host: your-client-domain.com
       #     paths:
@@ -35,8 +36,9 @@ server:
   ingress:
     main:
       enabled: false
-      # Only define hosts when ingress is enabled
-      # To enable ingress, set enabled: true and uncomment/configure hosts below:
+      # When ingress is disabled, ensure no hosts are defined
+      hosts: []
+      # To enable ingress, set enabled: true and configure hosts:
       # hosts:
       #   - host: your-server-domain.com
       #     paths:
