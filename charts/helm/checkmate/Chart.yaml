@@ -17,9 +17,9 @@ dependencies:
     condition: client.enabled
   - name: mongodb
     version: 16.5.40
-    repository: https://charts.bitnami.com/bitnami
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: mongodb.enabled
   - name: redis
     version: 22.0.1
-    repository: https://charts.bitnami.com/bitnami
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
