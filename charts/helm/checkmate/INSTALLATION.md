@@ -51,6 +51,12 @@ Edit `values.yaml` to update:
               - path: /
                 pathType: Prefix
   ```
+- **For custom nginx configuration**: Modify the frontend nginx settings:
+  ```yaml
+  client:
+    nginx:
+      serverName: your-domain.com  # Set your domain
+  ```
 - **For external ingress**: Keep `ingress.main.enabled: false` (default) and configure your own ingress controller
 - **For external databases**: Disable bundled MongoDB or Redis by setting `mongodb.enabled` or `redis.enabled` to `false`
 

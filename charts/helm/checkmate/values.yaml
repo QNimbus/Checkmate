@@ -3,6 +3,22 @@ client:
   image:
     repository: ghcr.io/bluewave-labs/checkmate-client
     tag: v2.3
+  # Mount the custom nginx configuration as includes
+  persistence:
+    nginx-upstream:
+      type: configMap
+      name: '{{ include "checkmate.client.fullname" . }}-nginx'
+      globalMounts:
+        - path: /etc/nginx/conf.d/upstream.conf
+          subPath: upstream.conf
+          readOnly: true
+    nginx-proxy:
+      type: configMap
+      name: '{{ include "checkmate.client.fullname" . }}-nginx'
+      globalMounts:
+        - path: /etc/nginx/conf.d/proxy.conf
+          subPath: proxy.conf
+          readOnly: true
   service:
     main:
       ports:
