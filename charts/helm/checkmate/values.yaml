@@ -1,25 +1,59 @@
 client:
-  image: ghcr.io/bluewave-labs/checkmate-client:v2.3
-  port: 80
+  enabled: true
+  image:
+    repository: ghcr.io/bluewave-labs/checkmate-client
+    tag: v2.3
+  service:
+    main:
+      ports:
+        http:
+          port: 80
   ingress:
-    enabled: true
-    host: change_me
+    main:
+      enabled: true
+      hosts:
+        - host: change_me
+          paths:
+            - path: /
+              pathType: Prefix
 
 server:
-  image: ghcr.io/bluewave-labs/checkmate-backend:v2.3
-  port: 52345
-  protocol: change_me
+  enabled: true
+  image:
+    repository: ghcr.io/bluewave-labs/checkmate-backend
+    tag: v2.3
+  envFrom:
+    - secretRef:
+        name: checkmate-secrets
+  service:
+    main:
+      ports:
+        http:
+          port: 52345
   ingress:
-    enabled: true
-    host: change_me
-
-redis:
-  image: redis:7.2
-  port: 6379
+    main:
+      enabled: true
+      hosts:
+        - host: change_me
+          paths:
+            - path: /
+              pathType: Prefix
 
 mongodb:
-  image: mongo:7.0
-  port: 27017
+  enabled: true
+  auth:
+    enabled: false
+  persistence:
+    size: 5Gi
+
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    persistence:
+      size: 1Gi
 
 secrets:
   JWT_SECRET: change_me
@@ -29,13 +63,10 @@ secrets:
   SYSTEM_EMAIL_HOST: smtp.example.com
   SYSTEM_EMAIL_PORT: "587"
   PAGESPEED_API_KEY: change_me
-  DB_CONNECTION_STRING: mongodb://mongodb:27017/uptime_db
-  REDIS_HOST: redis
+  DB_CONNECTION_STRING: mongodb://checkmate-mongodb:27017/uptime_db
+  REDIS_HOST: checkmate-redis-master
   REDIS_PORT: "6379"
   DB_TYPE: MongoDB
   TOKEN_TTL: 99d
   REFRESH_TOKEN_TTL: 99d
 
-persistence:
-  mongodbSize: 5Gi
-  redisSize: 1Gi

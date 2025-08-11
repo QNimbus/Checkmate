@@ -17,19 +17,24 @@ git clone https://github.com/bluewave-labs/checkmate.git
 cd checkmate/charts/helm/checkmate
 ```
 
-### 2. Customize values.yaml
-Edit `values.yaml` to update:
-- `client.ingress.host` and `server.ingress.host` with your domain names
-- `server.protocol` (usually http or https)
-- Secrets under the `secrets` section (`JWT_SECRET`, email credentials, API keys, etc.) — replace all change_me values
+### 2. Update chart dependencies
+```bash
+helm dependency update
+```
 
-### 3. Deploy the Helm chart
+### 3. Customize values.yaml
+Edit `values.yaml` to update:
+- `client.ingress.main.hosts[0].host` and `server.ingress.main.hosts[0].host` with your domain names
+- Secrets under the `secrets` section (`JWT_SECRET`, email credentials, API keys, etc.) — replace all `change_me` values
+- Optionally disable bundled MongoDB or Redis by setting `mongodb.enabled` or `redis.enabled` to `false`
+
+### 4. Deploy the Helm chart
 ```bash
 helm install checkmate ./charts/helm/checkmate
 ```
-This will deploy the client, server, MongoDB, and Redis components.
+This will deploy the client, server, MongoDB, and Redis components using their respective subcharts.
 
-### 4. Verify the deployment
+### 5. Verify the deployment
 Check pods and services:
 ```bash
 kubectl get pods
